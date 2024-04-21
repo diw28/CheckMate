@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'screens/main_screen.dart';
@@ -23,8 +24,7 @@ class _MainAppState extends State<MainApp> {
 
   Future<void> checkNewUser() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    if (prefs.getBool('init') == null) {
-      // prefs.setBool('init', true);
+    if (prefs.getString('name') == null) {
       newUser = true;
     } else {
       newUser = false;
@@ -40,7 +40,7 @@ class _MainAppState extends State<MainApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.white,

@@ -2,10 +2,13 @@ import 'package:flutter/material.dart' hide Text, TextField;
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../widgets/text.dart' show Text, TextField;
 import '../../themes/color_theme.dart';
 import '../../themes/text_theme.dart';
+
+import '../main_screen.dart';
 
 const double duration = 120000;
 
@@ -27,13 +30,30 @@ class _TutorialScreenState extends State<TutorialScreen> {
     'title+pad_b': 90,
   };
 
+  Future<void> setName(String name) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('name', name);
+  }
+
   void toNext() {
     if (page == 0) {
       topContainer['pad_t'] = 16.91;
       topContainer['pad_m'] = 0;
       topContainer['title+pad_b'] = 16.91;
     } else if (page == 5) {
-      if (name.isNotEmpty) {}
+      if (name.isNotEmpty) {
+        focusNode.dispose();
+        setName(name);
+        Get.offAll(() => const MainScreen());
+      } else {
+        Get.snackbar(
+          'warning',
+          'type your name or nickname',
+          snackPosition: SnackPosition.BOTTOM,
+          duration: const Duration(milliseconds: 1500),
+        );
+      }
+      return;
     }
 
     page += 1;
@@ -63,6 +83,7 @@ class _TutorialScreenState extends State<TutorialScreen> {
     double widthRate = MediaQuery.of(context).size.width / 430;
     double heightRate = MediaQuery.of(context).size.height / 932;
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: GestureDetector(
         onTap: () {
           setState(() {
@@ -284,8 +305,8 @@ class Page0Center extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double widthRate = MediaQuery.of(context).size.width / 430;
-    double heightRate = MediaQuery.of(context).size.height / 932;
+    // double widthRate = MediaQuery.of(context).size.width / 430;
+    // double heightRate = MediaQuery.of(context).size.height / 932;
     return AnimatedOpacity(
       opacity: (visible) ? 1 : 0,
       duration: Duration(microseconds: duration.toInt()),
@@ -324,7 +345,7 @@ class Page1Center extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double widthRate = MediaQuery.of(context).size.width / 430;
+    // double widthRate = MediaQuery.of(context).size.width / 430;
     double heightRate = MediaQuery.of(context).size.height / 932;
     return AnimatedOpacity(
       opacity: (visible) ? 1 : 0,
@@ -518,7 +539,7 @@ class Page3Center extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double widthRate = MediaQuery.of(context).size.width / 430;
+    // double widthRate = MediaQuery.of(context).size.width / 430;
     double heightRate = MediaQuery.of(context).size.height / 932;
     return AnimatedOpacity(
       opacity: (visible) ? 1 : 0,
@@ -551,7 +572,7 @@ class Page4Center extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double widthRate = MediaQuery.of(context).size.width / 430;
+    // double widthRate = MediaQuery.of(context).size.width / 430;
     double heightRate = MediaQuery.of(context).size.height / 932;
     return AnimatedOpacity(
       opacity: (visible) ? 1 : 0,
@@ -616,6 +637,7 @@ class Page5Center extends StatelessWidget {
                 focusNode: focusNode,
                 textAlign: TextAlign.center,
                 style: MainTextTheme.tutorialInput,
+                textInputAction: TextInputAction.done,
                 decoration: InputDecoration(
                   contentPadding: EdgeInsets.zero,
                   border: OutlineInputBorder(
@@ -632,6 +654,9 @@ class Page5Center extends StatelessWidget {
               '이름을 알려주기 싫다면,\n별명도 좋아요',
               style: MainTextTheme.tutorialTip,
               textAlign: TextAlign.center,
+            ),
+            SizedBox(
+              height: 105 * heightRate,
             ),
           ],
         ),
