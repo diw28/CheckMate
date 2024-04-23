@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart' as m;
+import 'package:flutter/services.dart';
 
 class Text extends m.Text {
   const Text(
@@ -46,7 +47,7 @@ class TextField extends m.StatelessWidget {
   final m.FocusNode? focusNode;
   final m.TextAlign? textAlign;
   final m.TextInputAction? textInputAction;
-  final m.InputDecoration? decoration;
+  final m.InputDecoration decoration;
   final m.TextInputType? keyboardType;
   final m.TextStyle? style;
   final bool? obscureText;
@@ -58,13 +59,18 @@ class TextField extends m.StatelessWidget {
   final int? maxLines;
   final void Function(String)? onSubmitted;
   final m.TextEditingController? controller;
+  final List<TextInputFormatter>? inputFormatters;
 
   const TextField({
     super.key,
     this.focusNode,
     this.textAlign,
     this.textInputAction,
-    this.decoration,
+    this.decoration = const m.InputDecoration(
+      contentPadding: m.EdgeInsets.zero,
+      border: m.InputBorder.none,
+      counterText: '',
+    ),
     this.keyboardType,
     this.style,
     this.obscureText,
@@ -76,6 +82,7 @@ class TextField extends m.StatelessWidget {
     this.scrollPhysics,
     this.scrollController,
     this.controller,
+    this.inputFormatters,
   });
 
   @override
@@ -94,7 +101,6 @@ class TextField extends m.StatelessWidget {
         keyboardType: keyboardType,
         style: style,
         obscureText: obscureText ?? false,
-        obscuringCharacter: obscuringCharacter ?? '•',
         maxLength: maxLength,
         maxLines: maxLines,
         onChanged: onChanged,
@@ -102,6 +108,7 @@ class TextField extends m.StatelessWidget {
         scrollPhysics: scrollPhysics,
         scrollController: scrollController,
         controller: controller,
+        inputFormatters: inputFormatters,
       ),
     );
   }

@@ -4,13 +4,13 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../widgets/text.dart' show Text, TextField;
-import '../../themes/color_theme.dart';
-import '../../themes/text_theme.dart';
+import '../widgets/text.dart' show Text, TextField;
+import '../themes/color_theme.dart';
+import '../themes/text_theme.dart';
 
-import '../main_screen.dart';
+import 'home_screen.dart';
 
-const double duration = 120000;
+const double duration = 210000;
 
 class TutorialScreen extends StatefulWidget {
   const TutorialScreen({super.key});
@@ -23,12 +23,6 @@ class _TutorialScreenState extends State<TutorialScreen> {
   FocusNode focusNode = FocusNode();
   String name = '';
   int page = 0;
-  bool visiblePrev = false;
-  Map<String, double> topContainer = {
-    'pad_t': 50,
-    'pad_m': 23.83,
-    'title+pad_b': 90,
-  };
 
   Future<void> setName(String name) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -36,15 +30,11 @@ class _TutorialScreenState extends State<TutorialScreen> {
   }
 
   void toNext() {
-    if (page == 0) {
-      topContainer['pad_t'] = 16.91;
-      topContainer['pad_m'] = 0;
-      topContainer['title+pad_b'] = 16.91;
-    } else if (page == 5) {
+    if (page == 5) {
       if (name.isNotEmpty) {
         focusNode.dispose();
         setName(name);
-        Get.offAll(() => const MainScreen());
+        Get.offAll(() => const HomeScreen());
       } else {
         Get.snackbar(
           'warning',
@@ -61,13 +51,7 @@ class _TutorialScreenState extends State<TutorialScreen> {
   }
 
   void toPrev() {
-    if (page == 1) {
-      topContainer['pad_t'] = 50;
-      topContainer['pad_m'] = 23.83;
-      topContainer['title+pad_b'] = 90;
-    } else if (page == 0) {
-      return;
-    }
+    if (page == 0) return;
 
     page -= 1;
     setState(() {});
@@ -101,10 +85,12 @@ class _TutorialScreenState extends State<TutorialScreen> {
                 duration: Duration(microseconds: duration.toInt()),
                 decoration: BoxDecoration(
                   color: MainColors.tutorialColor,
-                  borderRadius: BorderRadius.circular(25 * heightRate),
+                  borderRadius: BorderRadius.circular(
+                    (page == 0) ? 25 * heightRate : 20 * heightRate,
+                  ),
                 ),
                 padding: EdgeInsets.only(
-                  top: topContainer['pad_t']! * heightRate,
+                  top: (page == 0) ? 50 * heightRate : 16.91 * heightRate,
                   right: (25 * heightRate < 6 * widthRate)
                       ? 19 * widthRate
                       : 25 * heightRate - 6 * widthRate,
@@ -123,7 +109,7 @@ class _TutorialScreenState extends State<TutorialScreen> {
                     ),
                     AnimatedContainer(
                       duration: Duration(microseconds: duration.toInt()),
-                      height: topContainer['pad_m']! * heightRate,
+                      height: (page == 0) ? 23.83 * heightRate : 0,
                     ),
                     Column(
                       children: [
@@ -131,7 +117,7 @@ class _TutorialScreenState extends State<TutorialScreen> {
                           duration: Duration(
                             microseconds: duration.toInt(),
                           ),
-                          height: topContainer['title+pad_b']! * heightRate,
+                          height: (page == 0) ? 90 * heightRate : 16.91,
                           child: AnimatedOpacity(
                             duration: Duration(
                               microseconds: (duration * 51.83 / 96.91).toInt(),
@@ -215,7 +201,7 @@ class _TutorialScreenState extends State<TutorialScreen> {
                             ),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(
-                                50 * widthRate,
+                                50 * heightRate,
                               ),
                               color: MainColors.buttonPrevColor,
                             ),
@@ -250,7 +236,8 @@ class _TutorialScreenState extends State<TutorialScreen> {
                           padding:
                               EdgeInsets.symmetric(vertical: 14 * heightRate),
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50 * widthRate),
+                            borderRadius:
+                                BorderRadius.circular(50 * heightRate),
                             color: MainColors.highlightColor,
                           ),
                           child: Center(
@@ -260,7 +247,7 @@ class _TutorialScreenState extends State<TutorialScreen> {
                                   duration: Duration(
                                     microseconds: duration.toInt(),
                                   ),
-                                  opacity: (page < 4) ? 1 : 0,
+                                  opacity: (page < 5) ? 1 : 0,
                                   child: const Text(
                                     '계속',
                                     style: MainTextTheme.button,
@@ -270,7 +257,7 @@ class _TutorialScreenState extends State<TutorialScreen> {
                                   duration: Duration(
                                     microseconds: duration.toInt(),
                                   ),
-                                  opacity: (page >= 4) ? 1 : 0,
+                                  opacity: (page >= 5) ? 1 : 0,
                                   child: const Text(
                                     '시작',
                                     style: MainTextTheme.button,
@@ -353,7 +340,14 @@ class Page1Center extends StatelessWidget {
       child: Center(
         child: Column(
           children: [
-            SvgPicture.asset('assets/icons/tuto_page1.svg'),
+            SvgPicture.asset(
+              'assets/icons/checkmate_add.svg',
+              height: 110,
+              colorFilter: const ColorFilter.mode(
+                MainColors.tutorialColor,
+                BlendMode.srcIn,
+              ),
+            ),
             SizedBox(
               height: 15 * heightRate,
             ),
@@ -547,9 +541,16 @@ class Page3Center extends StatelessWidget {
       child: Center(
         child: Column(
           children: [
-            SvgPicture.asset('assets/icons/tuto_page3.svg'),
-            SizedBox(
-              height: 15 * heightRate,
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 11.5 * heightRate),
+              child: SvgPicture.asset(
+                'assets/icons/checkmate_timer.svg',
+                height: 138,
+                colorFilter: const ColorFilter.mode(
+                  MainColors.tutorialColor,
+                  BlendMode.srcIn,
+                ),
+              ),
             ),
             const Text(
               '타이머를 이용하여\n생산성을 향상시키거나',
@@ -580,9 +581,16 @@ class Page4Center extends StatelessWidget {
       child: Center(
         child: Column(
           children: [
-            SvgPicture.asset('assets/icons/tuto_page4.svg'),
+            SvgPicture.asset(
+              'assets/icons/checkmate_pomodoro.svg',
+              height: 130,
+              colorFilter: const ColorFilter.mode(
+                MainColors.tutorialColor,
+                BlendMode.srcIn,
+              ),
+            ),
             SizedBox(
-              height: 15 * heightRate,
+              height: 7 * heightRate,
             ),
             const Text(
               'Pomodoro를 이용해\n효율적으로 작업해보세요.',

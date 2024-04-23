@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'screens/main_screen.dart';
+import 'screens/home_screen.dart';
 import 'screens/splash_screen.dart';
-import 'screens/tutorial/tutorial_screen.dart';
+import 'screens/tutorial_screen.dart';
 
 import 'themes/color_theme.dart';
 
@@ -51,7 +51,7 @@ class _MainAppState extends State<MainApp> {
           ? const SplashScreen()
           : (newUser!)
               ? const TutorialScreen()
-              : const MainScreen(),
+              : const HomeScreen(),
     );
   }
 }
