@@ -8,7 +8,6 @@ class ToggleButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double widthRatio = MediaQuery.of(context).size.width / 430;
     double heightRatio = MediaQuery.of(context).size.height / 932;
     return AnimatedContainer(
       duration: Duration(

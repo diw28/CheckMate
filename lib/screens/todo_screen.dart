@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart' hide Text, TextField;
 
 import 'package:get/get.dart';
@@ -19,13 +17,13 @@ class TodoScreen extends StatefulWidget {
 }
 
 class _TodoScreenState extends State<TodoScreen> {
-  List<Todo> todos_important = [], todos_not = [];
+  List<Todo> todosImportant = [], todosNot = [];
   Future<void> getTodo() async {
     for (Todo todo in await Todo.getAll()) {
       if (todo.isImportant) {
-        todos_important.add(todo);
+        todosImportant.add(todo);
       } else {
-        todos_not.add(todo);
+        todosNot.add(todo);
       }
     }
     setState(() {});
@@ -100,7 +98,7 @@ class _TodoScreenState extends State<TodoScreen> {
                   ],
                 ),
               ),
-              if (todos_important.isEmpty && todos_not.isEmpty)
+              if (todosImportant.isEmpty && todosNot.isEmpty)
                 Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -181,14 +179,14 @@ class _TodoScreenState extends State<TodoScreen> {
                         horizontal: 11 * widthRatio,
                       ),
                       itemBuilder: (context, index) => TodoItem(
-                        todos_important[index],
+                        todosImportant[index],
                         backgroundColor: const Color(0xFFF2F2F2),
                         detail: true,
                       ),
                       separatorBuilder: (context, index) => SizedBox(
                         height: 15 * heightRatio,
                       ),
-                      itemCount: todos_important.length,
+                      itemCount: todosImportant.length,
                     ),
                     SizedBox(
                       height: 25 * heightRatio,
@@ -210,14 +208,14 @@ class _TodoScreenState extends State<TodoScreen> {
                         horizontal: 11 * widthRatio,
                       ),
                       itemBuilder: (context, index) => TodoItem(
-                        todos_not[index],
+                        todosNot[index],
                         backgroundColor: const Color(0xFFF2F2F2),
                         detail: true,
                       ),
                       separatorBuilder: (context, index) => SizedBox(
                         height: 15 * heightRatio,
                       ),
-                      itemCount: todos_not.length,
+                      itemCount: todosNot.length,
                     ),
                   ],
                 )
