@@ -14,7 +14,7 @@ class LocalNotification {
   static Future<void> init() async {
     await notifications.initialize(
       const InitializationSettings(
-        android: AndroidInitializationSettings('notification_icon'),
+        android: AndroidInitializationSettings('notice_icon'),
         iOS: DarwinInitializationSettings(
           requestAlertPermission: true,
           requestBadgePermission: true,
