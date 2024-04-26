@@ -60,6 +60,7 @@ class TextField extends m.StatelessWidget {
   final void Function(String)? onSubmitted;
   final m.TextEditingController? controller;
   final List<TextInputFormatter>? inputFormatters;
+  final bool? enabled;
 
   const TextField({
     super.key,
@@ -83,6 +84,7 @@ class TextField extends m.StatelessWidget {
     this.scrollController,
     this.controller,
     this.inputFormatters,
+    this.enabled,
   });
 
   @override
@@ -109,6 +111,7 @@ class TextField extends m.StatelessWidget {
         scrollController: scrollController,
         controller: controller,
         inputFormatters: inputFormatters,
+        enabled: enabled,
       ),
     );
   }

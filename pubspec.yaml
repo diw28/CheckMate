@@ -13,7 +13,11 @@ environment:
 
 dependencies:
   get:
+  intl:
   shared_preferences:
+  flutter_local_notifications:
+  permission_handler:
+  timezone:
   flutter_svg:
   vibration:
   circular_countdown_timer:
@@ -74,3 +78,6 @@ flutter:
           weight: 800
         - asset: assets/fonts/Pretendard-Black.ttf
           weight: 900
+    - family: PretendardVariable
+      fonts:
+        - asset: assets/fonts/PretendardVariable.ttf

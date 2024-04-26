@@ -43,7 +43,7 @@ abstract class MainTextTheme {
     fontWeight: FontWeight.w400,
     height: 21 / 17,
   );
-  static const tutorialInput = TextStyle(
+  static const input = TextStyle(
     color: Colors.black,
     fontSize: 19,
     fontFamily: 'Pretendard',
@@ -75,10 +75,10 @@ abstract class MainTextTheme {
   );
   static const homeScreenTitle = TextStyle(
     color: Colors.white,
-    fontSize: 23,
+    fontSize: 21,
     fontFamily: 'Pretendard',
     fontWeight: FontWeight.w400,
-    height: 28 / 23,
+    height: 25 / 21,
   );
   static const homeScreenButton = TextStyle(
     color: Colors.black,
@@ -128,5 +128,47 @@ abstract class MainTextTheme {
     fontFamily: 'Pretendard',
     fontWeight: FontWeight.w400,
     height: 54 / 45,
+  );
+  static const pomodoroCount = TextStyle(
+    color: TextColors.pomodoroCount,
+    fontSize: 40,
+    fontFamily: 'Pretendard',
+    fontWeight: FontWeight.w400,
+    height: 48 / 40,
+  );
+  static const settingTitle = TextStyle(
+    color: Colors.black,
+    fontSize: 19,
+    fontFamily: 'Pretendard',
+    fontWeight: FontWeight.w500,
+    height: 23 / 19,
+  );
+  static const settingtext = TextStyle(
+    color: TextColors.settingText,
+    fontSize: 14,
+    fontFamily: 'Pretendard',
+    fontWeight: FontWeight.w500,
+    height: 17 / 14,
+  );
+  static const todoDetailImportant = TextStyle(
+    color: TextColors.settingText,
+    fontSize: 20,
+    fontFamily: 'Pretendard',
+    fontWeight: FontWeight.w500,
+    height: 24 / 20,
+  );
+  static const todoEmptyAht = TextStyle(
+    color: TextColors.todoEmpty,
+    fontSize: 40,
+    fontFamily: 'Pretendard',
+    fontWeight: FontWeight.w900,
+    height: 48 / 40,
+  );
+  static const todoEmpty = TextStyle(
+    color: TextColors.todoEmpty,
+    fontSize: 17,
+    fontFamily: 'Pretendard',
+    fontWeight: FontWeight.w300,
+    height: 20 / 17,
   );
 }

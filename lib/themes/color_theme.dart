@@ -19,6 +19,9 @@ abstract class MainColors {
   static const addTodoTime = Color(0xFFA64EFF);
   static const timerStop = Color(0xFFFF5656);
   static const timerPaused = Color(0xFFBCBCBC);
+  static const toggleBackground = Color(0xFFBFBFBF);
+  static const toggleBackgroundActive = Color(0xFFB88CFF);
+  static const settingBackground = Color(0xFFEBEBEB);
 }
 
 abstract class TextColors {
@@ -26,4 +29,8 @@ abstract class TextColors {
   static const tutorialText = Color(0xFF595959);
   static const tutorialTip = Color(0xFF7A7A7A);
   static const todoListSelected = Color(0xFFB2B2B2);
+  static const pomodoroCount = Color(0xFF005445);
+  static const settingText = Color(0xFF9B9B9B);
+  static const todoDetailImportant = Color(0xFF696969);
+  static const todoEmpty = Color(0xFF2F00A0);
 }

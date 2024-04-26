@@ -1,10 +1,8 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart' hide Text, TextField;
 
 import 'package:get/get.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:check_mate/functions/todo_list.dart';
 
 import '../widgets/text.dart' show Text, TextField;
 import '../themes/text_theme.dart';
@@ -18,7 +16,6 @@ class AddTodoScreen extends StatefulWidget {
 }
 
 class _AddTodoScreenState extends State<AddTodoScreen> {
-  late SharedPreferences prefs;
   FocusNode focusNode1 = FocusNode();
   FocusNode focusNode2 = FocusNode();
   String name = '';
@@ -26,21 +23,15 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
   bool isImportant = false;
   TimeOfDay time = const TimeOfDay(hour: 0, minute: 0);
 
-  Future<void> initPrefs() async {
-    prefs = await SharedPreferences.getInstance();
-    setState(() {});
-  }
-
   @override
   void initState() {
     super.initState();
-    initPrefs();
   }
 
   @override
   Widget build(BuildContext context) {
-    double widthRate = MediaQuery.of(context).size.width / 430;
-    double heightRate = MediaQuery.of(context).size.height / 932;
+    double widthRatio = MediaQuery.of(context).size.width / 430;
+    double heightRatio = MediaQuery.of(context).size.height / 932;
     return GestureDetector(
       onTap: () {
         focusNode1.unfocus();
@@ -50,9 +41,9 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
         body: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.only(
-              top: 51 * heightRate,
-              left: 34 * widthRate,
-              right: 34 * widthRate,
+              top: 51 * heightRatio,
+              left: 34 * widthRatio,
+              right: 34 * widthRatio,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -65,8 +56,8 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                   padding: EdgeInsets.only(
                     top: 13,
                     bottom: 12.83,
-                    left: 15.33 * widthRate,
-                    right: 26 * widthRate,
+                    left: 15.33 * widthRatio,
+                    right: 26 * widthRatio,
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
@@ -97,7 +88,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                         ),
                       ),
                       SizedBox(
-                        width: 11 * widthRate,
+                        width: 11 * widthRatio,
                       ),
                       const Text(
                         '할 일 추가',
@@ -107,12 +98,12 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                   ),
                 ),
                 SizedBox(
-                  height: 43 * heightRate,
+                  height: 43 * heightRatio,
                 ),
                 Container(
                   height: 48,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(18 * heightRate),
+                    borderRadius: BorderRadius.circular(18 * heightRatio),
                     color: MainColors.textfieldNameColor,
                   ),
                   padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -129,7 +120,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                       contentPadding: EdgeInsets.zero,
                       border: OutlineInputBorder(
                         borderSide: BorderSide.none,
-                        borderRadius: BorderRadius.circular(18 * heightRate),
+                        borderRadius: BorderRadius.circular(18 * heightRatio),
                       ),
                       hintText: '여기에 할 일을 입력...',
                       hintStyle: MainTextTheme.addTodoHint,
@@ -137,7 +128,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                   ),
                 ),
                 SizedBox(
-                  height: 12 * heightRate,
+                  height: 12 * heightRatio,
                 ),
                 Row(
                   children: [
@@ -150,8 +141,8 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                         padding: EdgeInsets.only(
                           top: 8,
                           bottom: 9,
-                          left: 9 * widthRate,
-                          right: 12 * widthRate,
+                          left: 9 * widthRatio,
+                          right: 12 * widthRatio,
                         ),
                         decoration: BoxDecoration(
                           color: isImportant
@@ -177,7 +168,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                               ),
                             ),
                             SizedBox(
-                              width: 2 * widthRate,
+                              width: 2 * widthRatio,
                             ),
                             Text(
                               '중요',
@@ -192,7 +183,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                       ),
                     ),
                     SizedBox(
-                      width: 10 * widthRate,
+                      width: 10 * widthRatio,
                     ),
                     GestureDetector(
                       onTap: () async {
@@ -207,8 +198,8 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                         padding: EdgeInsets.only(
                           top: 8,
                           bottom: 9,
-                          left: 8 * widthRate,
-                          right: 8 * widthRate,
+                          left: 8 * widthRatio,
+                          right: 8 * widthRatio,
                         ),
                         decoration: BoxDecoration(
                           border: Border.all(
@@ -229,7 +220,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                               ),
                             ),
                             SizedBox(
-                              width: 5 * widthRate,
+                              width: 5 * widthRatio,
                             ),
                             Text(
                               time.format(context),
@@ -242,26 +233,26 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                   ],
                 ),
                 SizedBox(
-                  height: 29 * heightRate,
+                  height: 29 * heightRatio,
                 ),
                 Padding(
-                  padding: EdgeInsets.only(left: 12 * widthRate),
+                  padding: EdgeInsets.only(left: 12 * widthRatio),
                   child: const Text(
                     'Notes',
                     style: MainTextTheme.addTodoTitle,
                   ),
                 ),
                 SizedBox(
-                  height: 8 * heightRate,
+                  height: 8 * heightRatio,
                 ),
                 Container(
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(18 * heightRate),
+                    borderRadius: BorderRadius.circular(18 * heightRatio),
                     color: MainColors.textfieldNameColor,
                   ),
                   padding: EdgeInsets.symmetric(
-                    horizontal: 15 * widthRate,
-                    vertical: 16 * heightRate,
+                    horizontal: 15 * widthRatio,
+                    vertical: 16 * heightRatio,
                   ),
                   child: TextField(
                     onChanged: (p0) {
@@ -277,7 +268,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                       contentPadding: EdgeInsets.zero,
                       border: OutlineInputBorder(
                         borderSide: BorderSide.none,
-                        borderRadius: BorderRadius.circular(18 * heightRate),
+                        borderRadius: BorderRadius.circular(18 * heightRatio),
                       ),
                       hintText: '여기에 할 일을 입력...',
                       hintStyle: MainTextTheme.addTodoHint,
@@ -285,7 +276,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                   ),
                 ),
                 SizedBox(
-                  height: 94 * heightRate,
+                  height: 94 * heightRatio,
                 ),
                 GestureDetector(
                   onTap: () async {
@@ -296,18 +287,15 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                         snackPosition: SnackPosition.BOTTOM,
                         duration: const Duration(milliseconds: 1500),
                       );
-                      // } else if (note.isEmpty) {
                     } else {
-                      List<String> jsonList =
-                          prefs.getStringList('to_do_list') ?? [];
-
-                      List<Map<String, dynamic>> todoList = List.generate(
-                        jsonList.length,
-                        (int i) => jsonDecode(jsonList[i]),
+                      bool setCompleted = await Todo.set(
+                        name: name,
+                        note: note,
+                        time: time.format(context),
+                        check: false,
+                        isImportant: isImportant,
                       );
-
-                      if ([for (var todo in todoList) todo['name']]
-                          .contains(name)) {
+                      if (!setCompleted) {
                         Get.snackbar(
                           'warning',
                           "'$name' already exists.",
@@ -317,17 +305,6 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                         return;
                       }
 
-                      Map<String, String> a = {
-                        'name': name,
-                        'note': note,
-                        'isImportant': '$isImportant',
-                        'time': time.format(context)
-                      };
-                      jsonList.add(jsonEncode(a));
-
-                      prefs.setStringList('to_do_list', jsonList);
-
-                      // TODO: 알림 설정
                       Get.back();
                       Get.snackbar(
                         'success',
@@ -338,9 +315,9 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                     }
                   },
                   child: Container(
-                    padding: EdgeInsets.symmetric(vertical: 14 * heightRate),
+                    padding: EdgeInsets.symmetric(vertical: 14 * heightRatio),
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50 * heightRate),
+                      borderRadius: BorderRadius.circular(50 * heightRatio),
                       color: MainColors.highlightColor,
                     ),
                     child: const Center(
@@ -352,7 +329,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                   ),
                 ),
                 SizedBox(
-                  height: 10 * heightRate,
+                  height: 10 * heightRatio,
                 ),
               ],
             ),

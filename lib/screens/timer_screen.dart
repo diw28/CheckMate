@@ -62,8 +62,8 @@ class _TimerScreenState extends State<TimerScreen>
 
   @override
   Widget build(BuildContext context) {
-    double widthRate = MediaQuery.of(context).size.width / 430;
-    double heightRate = MediaQuery.of(context).size.height / 932;
+    double widthRatio = MediaQuery.of(context).size.width / 430;
+    double heightRatio = MediaQuery.of(context).size.height / 932;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: GestureDetector(
@@ -74,9 +74,9 @@ class _TimerScreenState extends State<TimerScreen>
         },
         child: Padding(
           padding: EdgeInsets.only(
-            top: 51 * heightRate,
-            left: 34 * widthRate,
-            right: 34 * widthRate,
+            top: 51 * heightRatio,
+            left: 34 * widthRatio,
+            right: 34 * widthRatio,
           ),
           child: Column(
             children: [
@@ -88,8 +88,8 @@ class _TimerScreenState extends State<TimerScreen>
                 padding: EdgeInsets.only(
                   top: 13,
                   bottom: 12.83,
-                  left: 15.33 * widthRate,
-                  right: 26 * widthRate,
+                  left: 15.33 * widthRatio,
+                  right: 26 * widthRatio,
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -120,7 +120,7 @@ class _TimerScreenState extends State<TimerScreen>
                       ),
                     ),
                     SizedBox(
-                      width: 9.33 * widthRate,
+                      width: 9.33 * widthRatio,
                     ),
                     const Text(
                       '타이머',
@@ -130,20 +130,22 @@ class _TimerScreenState extends State<TimerScreen>
                 ),
               ),
               SizedBox(
-                height: 96 * heightRate,
+                height: 96 * heightRatio,
               ),
               CircularCountDownTimer(
                 focusNodes: focusNodes,
                 textFormat: "HH:mm:ss",
                 controller: timerController,
-                width: 300 * widthRate,
-                height: 300 * widthRate,
+                width: 300 * widthRatio,
+                height: 300 * widthRatio,
                 hours: hours,
                 minutes: minutes,
                 seconds: seconds,
                 isReverse: true,
                 autoStart: false,
-                textStyle: MainTextTheme.timerText,
+                textStyle: MainTextTheme.timerText.copyWith(
+                  fontSize: 45 * widthRatio,
+                ),
                 textAlign: TextAlign.center,
                 strokeWidth: 3,
                 fillColor: red ? Colors.red : MainColors.borderColor,
@@ -177,7 +179,7 @@ class _TimerScreenState extends State<TimerScreen>
                 },
               ),
               SizedBox(
-                height: 57 * heightRate,
+                height: 57 * heightRatio,
               ),
               if (end)
                 GestureDetector(
@@ -190,10 +192,10 @@ class _TimerScreenState extends State<TimerScreen>
                     setState(() {});
                   },
                   child: Container(
-                    width: 300 * widthRate,
-                    padding: EdgeInsets.symmetric(vertical: 14 * heightRate),
+                    width: 300 * widthRatio,
+                    padding: EdgeInsets.symmetric(vertical: 14 * heightRatio),
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50 * heightRate),
+                      borderRadius: BorderRadius.circular(50 * heightRatio),
                       color: MainColors.timerStop,
                     ),
                     child: const Center(
@@ -211,10 +213,10 @@ class _TimerScreenState extends State<TimerScreen>
                     setState(() {});
                   },
                   child: Container(
-                    width: 300 * widthRate,
-                    padding: EdgeInsets.symmetric(vertical: 14 * heightRate),
+                    width: 300 * widthRatio,
+                    padding: EdgeInsets.symmetric(vertical: 14 * heightRatio),
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50 * heightRate),
+                      borderRadius: BorderRadius.circular(50 * heightRatio),
                       color: MainColors.highlightColor,
                     ),
                     child: const Center(
@@ -227,7 +229,7 @@ class _TimerScreenState extends State<TimerScreen>
                 )
               else if (timerController.isPaused.value)
                 SizedBox(
-                  width: 300 * widthRate,
+                  width: 300 * widthRatio,
                   child: Row(
                     children: [
                       Expanded(
@@ -237,11 +239,11 @@ class _TimerScreenState extends State<TimerScreen>
                             setState(() {});
                           },
                           child: Container(
-                            padding:
-                                EdgeInsets.symmetric(vertical: 14 * heightRate),
+                            padding: EdgeInsets.symmetric(
+                                vertical: 14 * heightRatio),
                             decoration: BoxDecoration(
                               borderRadius:
-                                  BorderRadius.circular(50 * heightRate),
+                                  BorderRadius.circular(50 * heightRatio),
                               color: MainColors.timerPaused,
                             ),
                             child: const Center(
@@ -254,7 +256,7 @@ class _TimerScreenState extends State<TimerScreen>
                         ),
                       ),
                       SizedBox(
-                        width: 12 * widthRate,
+                        width: 12 * widthRatio,
                       ),
                       Expanded(
                         child: GestureDetector(
@@ -264,11 +266,11 @@ class _TimerScreenState extends State<TimerScreen>
                             setState(() {});
                           },
                           child: Container(
-                            padding:
-                                EdgeInsets.symmetric(vertical: 14 * heightRate),
+                            padding: EdgeInsets.symmetric(
+                                vertical: 14 * heightRatio),
                             decoration: BoxDecoration(
                               borderRadius:
-                                  BorderRadius.circular(50 * heightRate),
+                                  BorderRadius.circular(50 * heightRatio),
                               color: MainColors.timerPaused,
                             ),
                             child: const Center(
@@ -290,10 +292,10 @@ class _TimerScreenState extends State<TimerScreen>
                     setState(() {});
                   },
                   child: Container(
-                    width: 300 * widthRate,
-                    padding: EdgeInsets.symmetric(vertical: 14 * heightRate),
+                    width: 300 * widthRatio,
+                    padding: EdgeInsets.symmetric(vertical: 14 * heightRatio),
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50 * heightRate),
+                      borderRadius: BorderRadius.circular(50 * heightRatio),
                       color: MainColors.timerStop,
                     ),
                     child: const Center(
@@ -305,20 +307,20 @@ class _TimerScreenState extends State<TimerScreen>
                   ),
                 ),
               SizedBox(
-                height: 40 * heightRate,
+                height: 40 * heightRatio,
               ),
               SizedBox(
-                width: 300 * widthRate,
+                width: 300 * widthRatio,
                 child: const Divider(
                   height: 1,
                   thickness: 1,
                 ),
               ),
               SizedBox(
-                height: 48 * heightRate,
+                height: 48 * heightRatio,
               ),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 6 * widthRate),
+                padding: EdgeInsets.symmetric(horizontal: 6 * widthRatio),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -328,8 +330,8 @@ class _TimerScreenState extends State<TimerScreen>
                         setState(() {});
                       },
                       child: Container(
-                        width: 100 * widthRate,
-                        height: 100 * widthRate,
+                        width: 100 * widthRatio,
+                        height: 100 * widthRatio,
                         decoration: const ShapeDecoration(
                           shape: CircleBorder(
                             side: BorderSide(
@@ -355,8 +357,8 @@ class _TimerScreenState extends State<TimerScreen>
                         setState(() {});
                       },
                       child: Container(
-                        width: 100 * widthRate,
-                        height: 100 * widthRate,
+                        width: 100 * widthRatio,
+                        height: 100 * widthRatio,
                         decoration: const ShapeDecoration(
                           shape: CircleBorder(
                             side: BorderSide(
@@ -382,8 +384,8 @@ class _TimerScreenState extends State<TimerScreen>
                         setState(() {});
                       },
                       child: Container(
-                        width: 100 * widthRate,
-                        height: 100 * widthRate,
+                        width: 100 * widthRatio,
+                        height: 100 * widthRatio,
                         decoration: const ShapeDecoration(
                           shape: CircleBorder(
                             side: BorderSide(
