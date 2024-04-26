@@ -12,6 +12,10 @@ class LocalNotification {
   LocalNotification._();
 
   static Future<void> init() async {
+    PermissionStatus status = await Permission.notification.status;
+    if (status.isPermanentlyDenied || status.isGranted) return;
+    await Permission.notification.request();
+
     await notifications.initialize(
       const InitializationSettings(
         android: AndroidInitializationSettings('notice_icon'),
@@ -23,9 +27,6 @@ class LocalNotification {
       ),
       onDidReceiveNotificationResponse: (payload) {},
     );
-    PermissionStatus status = await Permission.notification.status;
-    if (status.isPermanentlyDenied || status.isGranted) return;
-    await Permission.notification.request();
   }
 
   static Future<void> set(Todo todo) async {

@@ -20,22 +20,9 @@ class MainApp extends StatefulWidget {
 }
 
 class _MainAppState extends State<MainApp> {
-  bool? newUser;
-
-  Future<void> checkNewUser() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    if (prefs.getString('name') == null) {
-      newUser = true;
-    } else {
-      newUser = false;
-    }
-    setState(() {});
-  }
-
   @override
   void initState() {
     super.initState();
-    checkNewUser();
   }
 
   @override
@@ -47,11 +34,7 @@ class _MainAppState extends State<MainApp> {
         colorScheme: ColorScheme.fromSeed(seedColor: MainColors.mainColor),
         useMaterial3: true,
       ),
-      home: (newUser == null)
-          ? const SplashScreen()
-          : (newUser!)
-              ? const TutorialScreen()
-              : const HomeScreen(),
+      home: const SplashScreen(),
     );
   }
 }
