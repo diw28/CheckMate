@@ -55,6 +55,7 @@ flutter:
   assets:
     - assets/background/
     - assets/icons/
+    - assets/icons/splash/
     - assets/icons/weather/
     - assets/icons/add_todo/
 
