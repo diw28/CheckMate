@@ -171,4 +171,53 @@ abstract class MainTextTheme {
     fontWeight: FontWeight.w300,
     height: 20 / 17,
   );
+  static const foodTitleBreakfast = TextStyle(
+    color: TextColors.foodTitleBreakfast,
+    fontSize: 45,
+    fontFamily: 'Pretendard',
+    fontWeight: FontWeight.w600,
+    height: 54 / 45,
+  );
+  static const foodTitleLunch = TextStyle(
+    color: TextColors.foodLunch,
+    fontSize: 45,
+    fontFamily: 'Pretendard',
+    fontWeight: FontWeight.w600,
+    height: 54 / 45,
+  );
+  static const foodTitleDinner = TextStyle(
+    color: TextColors.foodDinner,
+    fontSize: 45,
+    fontFamily: 'Pretendard',
+    fontWeight: FontWeight.w600,
+    height: 54 / 45,
+  );
+  static const foodTextBreakfast = TextStyle(
+    color: TextColors.foodBreakfast,
+    fontSize: 18,
+    fontFamily: 'Pretendard',
+    fontWeight: FontWeight.w500,
+    height: 31 / 18,
+  );
+  static const foodTextLunch = TextStyle(
+    color: TextColors.foodLunch,
+    fontSize: 18,
+    fontFamily: 'Pretendard',
+    fontWeight: FontWeight.w500,
+    height: 31 / 18,
+  );
+  static const foodTextDinner = TextStyle(
+    color: TextColors.foodDinner,
+    fontSize: 18,
+    fontFamily: 'Pretendard',
+    fontWeight: FontWeight.w500,
+    height: 31 / 18,
+  );
+  static const foodTip = TextStyle(
+    color: TextColors.tutorialTip,
+    fontSize: 17,
+    fontFamily: 'Pretendard',
+    fontWeight: FontWeight.w400,
+    height: 21 / 17,
+  );
 }

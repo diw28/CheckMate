@@ -14,6 +14,7 @@ environment:
 dependencies:
   get:
   intl:
+  http:
   shared_preferences:
   flutter_local_notifications:
   permission_handler:

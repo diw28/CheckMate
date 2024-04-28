@@ -12,6 +12,7 @@ import '../themes/color_theme.dart';
 import '../themes/text_theme.dart';
 import '../widgets/todo_list.dart';
 import 'add_todo_screen.dart';
+import 'food_screen.dart';
 import 'timer_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -137,7 +138,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               text: '오늘의 급식',
                               onTap: () {
                                 Get.to(
-                                  () => const AddTodoScreen(),
+                                  () => const FoodScreen(),
                                   transition: Transition.rightToLeft,
                                 );
                               },

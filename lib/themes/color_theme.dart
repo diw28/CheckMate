@@ -22,6 +22,9 @@ abstract class MainColors {
   static const toggleBackground = Color(0xFFBFBFBF);
   static const toggleBackgroundActive = Color(0xFFB88CFF);
   static const settingBackground = Color(0xFFEBEBEB);
+  static const foodBackgroundBreakfast = Color(0xFFFFEEDF);
+  static const foodBackgroundlunch = Color(0xFFE7F6FF);
+  static const foodBackgroundDinner = Color(0xFFD4D8FF);
 }
 
 abstract class TextColors {
@@ -33,4 +36,8 @@ abstract class TextColors {
   static const settingText = Color(0xFF9B9B9B);
   static const todoDetailImportant = Color(0xFF696969);
   static const todoEmpty = Color(0xFF2F00A0);
+  static const foodTitleBreakfast = Color(0xFFFF8E25);
+  static const foodBreakfast = Color(0xFF005585);
+  static const foodLunch = Color(0xFF0083CD);
+  static const foodDinner = Color(0xFF4D5FFF);
 }
