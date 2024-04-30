@@ -1,10 +1,13 @@
-import 'package:check_mate/functions/todo_list.dart';
 import 'package:flutter/material.dart';
+
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
+import 'package:timezone/data/latest.dart' as tz;
+
+import 'todo.dart';
+import '../themes/color_theme.dart';
 
 class LocalNotification {
   static final notifications = FlutterLocalNotificationsPlugin();
@@ -35,6 +38,7 @@ class LocalNotification {
       'NAME',
       priority: Priority.high,
       importance: Importance.max,
+      color: MainColors.highlightColor,
     );
     var iosDetails = const DarwinNotificationDetails(
       presentAlert: true,
@@ -78,6 +82,7 @@ class LocalNotification {
         uiLocalNotificationDateInterpretation:
             UILocalNotificationDateInterpretation.absoluteTime,
         matchDateTimeComponents: DateTimeComponents.dateAndTime,
+        androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
       );
     } catch (e) {
       print(e);

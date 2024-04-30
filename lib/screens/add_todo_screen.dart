@@ -2,7 +2,7 @@ import 'package:flutter/material.dart' hide Text, TextField;
 
 import 'package:get/get.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:check_mate/functions/todo_list.dart';
+import 'package:check_mate/functions/todo.dart';
 
 import '../widgets/text.dart' show Text, TextField;
 import '../themes/text_theme.dart';
@@ -281,6 +281,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                 GestureDetector(
                   onTap: () async {
                     if (name.isEmpty) {
+                      Get.closeAllSnackbars();
                       Get.snackbar(
                         'error',
                         'type the name of task to do',
@@ -296,6 +297,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                         isImportant: isImportant,
                       );
                       if (!setCompleted) {
+                        Get.closeAllSnackbars();
                         Get.snackbar(
                           'warning',
                           "'$name' already exists.",
@@ -306,6 +308,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                       }
 
                       Get.back();
+                      Get.closeAllSnackbars();
                       Get.snackbar(
                         'success',
                         "'$name' was saved successfully.",

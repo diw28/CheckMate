@@ -1,4 +1,4 @@
-import 'package:check_mate/functions/todo_list.dart';
+import 'package:check_mate/functions/todo.dart';
 import 'package:check_mate/screens/pomodoro_screen.dart';
 import 'package:check_mate/screens/settings_screen.dart';
 import 'package:flutter/material.dart' hide Text, TextField;
@@ -220,7 +220,7 @@ class _HomeScreenState extends State<HomeScreen> {
               SizedBox(
                 height: 48 * heightRatio,
               ),
-              TodoListBox(todos),
+              TodoListBox(todos, getTodo),
             ],
           ),
         ),

@@ -21,6 +21,7 @@ class _SplashScreenState extends State<SplashScreen> {
   int page = 0;
   bool? newUser;
   bool splashEnd = false;
+  bool init = false;
 
   Future<void> checkNewUser() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -59,16 +60,23 @@ class _SplashScreenState extends State<SplashScreen> {
     );
   }
 
+  Future<void> initNotice() async {
+    await LocalNotification.init();
+    setState(() {
+      init = true;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
-    LocalNotification.init();
     checkNewUser();
+    initNotice();
   }
 
   @override
   Widget build(BuildContext context) {
-    if (page == 0) {
+    if (page == 0 && init) {
       startAnimation();
       precacheImage(
         const AssetImage('assets/background/home_screen.png'),

@@ -5,7 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../functions/get_api.dart';
 import '../static.dart';
-import '../widgets/text.dart' show Text, TextField;
+import '../widgets/text.dart' show Text;
 import '../themes/text_theme.dart';
 import '../themes/color_theme.dart';
 

@@ -6,7 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../static.dart';
 import '../functions/notification.dart';
-import '../functions/todo_list.dart';
+import '../functions/todo.dart';
 import '../themes/color_theme.dart';
 import '../themes/text_theme.dart';
 import '../widgets/text.dart';
@@ -25,16 +25,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
   FocusNode focusNodePeriod = FocusNode();
   FocusNode focusNodeGoal = FocusNode();
   FocusNode focusNodeName = FocusNode();
-  bool notice = false;
-  bool vibration = false;
+  bool notice = true;
+  bool vibration = true;
   int? period;
   int goal = 1;
   String name = '';
 
   Future<void> getPrefs() async {
     prefs = await SharedPreferences.getInstance();
-    notice = prefs.getBool('notice') ?? false;
-    vibration = prefs.getBool('vibration') ?? false;
+    notice = prefs.getBool('notice') ?? true;
+    vibration = prefs.getBool('vibration') ?? true;
     if (notice) period = prefs.getInt('period');
     goal = prefs.getInt('goal') ?? 1;
     name = prefs.getString('name')!;

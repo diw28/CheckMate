@@ -26,7 +26,7 @@ class _TimerScreenState extends State<TimerScreen>
   bool red = false;
   bool end = false;
   bool reset = false;
-  bool useVibration = false;
+  bool useVibration = true;
   int hours = 00, minutes = 10, seconds = 00;
   TextEditingController controllerHour = TextEditingController(text: '00');
   TextEditingController controllerMinute = TextEditingController(text: '10');
@@ -38,7 +38,7 @@ class _TimerScreenState extends State<TimerScreen>
 
   Future<void> getPrefs() async {
     prefs = await SharedPreferences.getInstance();
-    useVibration = prefs.getBool('vibration') ?? false;
+    useVibration = prefs.getBool('vibration') ?? true;
     setState(() {});
   }
 

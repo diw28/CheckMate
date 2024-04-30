@@ -3,7 +3,7 @@ import 'package:flutter/material.dart' hide Text, TextField;
 import 'package:get/get.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../functions/todo_list.dart';
+import '../functions/todo.dart';
 import '../themes/text_theme.dart';
 import '../themes/color_theme.dart';
 import '../widgets/text.dart';

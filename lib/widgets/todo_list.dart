@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart' hide Text, TextField;
 import 'package:get/get.dart';
 
-import '../functions/todo_list.dart';
+import '../functions/todo.dart';
 import '../screens/todo_screen.dart';
 import '../static.dart';
 import '../themes/color_theme.dart';
@@ -12,9 +12,11 @@ import 'text.dart';
 
 class TodoListBox extends StatelessWidget {
   final List<Todo> todos;
+  final void Function() update;
 
   const TodoListBox(
-    this.todos, {
+    this.todos,
+    this.update, {
     super.key,
   });
 
@@ -47,11 +49,12 @@ class TodoListBox extends StatelessWidget {
                 child: SizedBox(),
               ),
               GestureDetector(
-                onTap: () {
-                  Get.to(
+                onTap: () async {
+                  await Get.to(
                     () => const TodoScreen(),
                     transition: Transition.rightToLeft,
                   );
+                  update();
                 },
                 child: const Icon(
                   Icons.arrow_forward_ios_rounded,
@@ -120,10 +123,12 @@ class _TodoItemState extends State<TodoItem> {
     double widthRatio = MediaQuery.of(context).size.width / 430;
     double heightRatio = MediaQuery.of(context).size.height / 932;
     return GestureDetector(
-      onTap: () {
-        setState(() {
-          widget.todo.check = !widget.todo.check;
-        });
+      onTap: () async {
+        await widget.todo.update(
+          check: !widget.todo.check,
+          date: DateTime.now().toIso8601String(),
+        );
+        setState(() {});
       },
       child: AnimatedContainer(
         duration: Duration(microseconds: duration.toInt()),

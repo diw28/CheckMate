@@ -36,6 +36,7 @@ class _TutorialScreenState extends State<TutorialScreen> {
         setName(name);
         Get.offAll(() => const HomeScreen());
       } else {
+        Get.closeAllSnackbars();
         Get.snackbar(
           'warning',
           'type your name or nickname',

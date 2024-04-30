@@ -1,14 +1,14 @@
 import 'dart:convert';
-import 'package:intl/intl.dart';
 
 import 'package:flutter/material.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:intl/intl.dart';
 
 import 'notification.dart';
 
 TimeOfDay stringToTimeOfDay(String tod) {
-  final format = DateFormat.jm(); //"6:00 AM"
+  final format = DateFormat('h:mm a'); //"6:00 AM"
   return TimeOfDay.fromDateTime(format.parse(tod));
 }
 
@@ -16,6 +16,7 @@ class Todo {
   String name;
   String note;
   String time;
+  String? date;
   bool check;
   bool isImportant;
 
@@ -23,6 +24,7 @@ class Todo {
       : name = jsonDecode(json)['name'],
         note = jsonDecode(json)['note'],
         time = jsonDecode(json)['time'],
+        date = jsonDecode(json)['date'],
         check = jsonDecode(json)['check'],
         isImportant = jsonDecode(json)['important'];
 
@@ -31,6 +33,7 @@ class Todo {
       'name': name,
       'note': note,
       'time': time,
+      'date': date,
       'check': check,
       'important': isImportant
     });
@@ -42,6 +45,7 @@ class Todo {
     required String time,
     required bool check,
     required bool isImportant,
+    String? date,
   }) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     List<String> jsonList = prefs.getStringList('to_do_list') ?? [];
@@ -52,13 +56,13 @@ class Todo {
       'name': name,
       'note': note,
       'time': time,
+      'date': date,
       'check': check,
       'important': isImportant,
     });
     jsonList.add(json);
     await prefs.setStringList('to_do_list', jsonList);
-
-    if (prefs.getBool('notice') ?? false) {
+    if (prefs.getBool('notice') ?? true) {
       LocalNotification.set(Todo.fromJson(json));
     }
     return true;
@@ -78,17 +82,39 @@ class Todo {
 
   static Future<List<Todo>> getAll() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    List<String> jsonList = prefs.getStringList('to_do_list') ?? [];
 
-    return [for (String json in jsonList) Todo.fromJson(json)];
+    List<String> jsonList = prefs.getStringList('to_do_list') ?? [];
+    List<Todo> todos = [];
+
+    for (String json in jsonList) {
+      Todo todo = Todo.fromJson(json);
+
+      if (todo.date != null) {
+        DateTime now = DateTime.now();
+        DateTime midnight = DateTime(
+          now.year,
+          now.month,
+          now.day,
+        );
+        DateTime date = DateTime.parse(todo.date!);
+
+        if (date.isBefore(midnight)) {
+          continue;
+        }
+      }
+      todos.add(todo);
+    }
+    prefs.setStringList('to_do_list', [for (Todo t in todos) t.json]);
+    return todos;
   }
 
   Future<bool> update({
-    required String name,
-    required String note,
-    required String time,
-    required bool check,
-    required bool isImportant,
+    String? name,
+    String? note,
+    String? time,
+    bool? check,
+    bool? isImportant,
+    String? date,
   }) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     List<String> jsonList = prefs.getStringList('to_do_list') ?? [];
@@ -100,26 +126,30 @@ class Todo {
       } else {
         result.add(
           jsonEncode({
-            'name': name,
-            'note': note,
-            'time': time,
-            'check': check,
-            'important': isImportant,
+            'name': name ?? this.name,
+            'note': note ?? this.note,
+            'time': time ?? this.time,
+            'date': date ?? this.date,
+            'check': check ?? this.check,
+            'important': isImportant ?? this.isImportant,
           }),
         );
       }
     }
 
-    this.name = name;
-    this.note = note;
-    this.time = time;
-    this.check = check;
-    this.isImportant = isImportant;
+    this.name = name ?? this.name;
+    this.note = note ?? this.note;
+    this.time = time ?? this.time;
+    this.date = date ?? this.date;
+    this.check = check ?? this.check;
+    this.isImportant = isImportant ?? this.isImportant;
 
-    if (prefs.getBool('notice') ?? false) {
-      await LocalNotification.cancel(name);
+    if (prefs.getBool('notice') ?? true) {
+      await LocalNotification.cancel(name ?? this.name);
       LocalNotification.set(this);
     }
+
+    await prefs.setStringList('to_do_list', result);
 
     return true;
   }

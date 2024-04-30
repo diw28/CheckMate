@@ -26,7 +26,7 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
   bool isRest = false;
   int totalPomodoros = 0;
   int goal = 1;
-  bool useVibration = false;
+  bool useVibration = true;
 
   void onTick(Timer timer) {
     if (totalSeconds == 0) {
@@ -90,7 +90,7 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
   Future<void> getPrefs() async {
     prefs = await SharedPreferences.getInstance();
     goal = prefs.getInt('goal') ?? goal;
-    useVibration = prefs.getBool('vibration') ?? false;
+    useVibration = prefs.getBool('vibration') ?? true;
     setState(() {});
   }
 
