@@ -19,6 +19,7 @@ dependencies:
   flutter_local_notifications:
   permission_handler:
   timezone:
+  location:
   flutter_svg:
   vibration:
   circular_countdown_timer:
