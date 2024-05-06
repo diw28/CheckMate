@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../functions/get_api.dart';
 import '../functions/notification.dart';
 import 'home_screen.dart';
 import 'tutorial_screen.dart';
@@ -22,6 +23,7 @@ class _SplashScreenState extends State<SplashScreen> {
   bool? newUser;
   bool splashEnd = false;
   bool init = false;
+  bool w = false;
 
   Future<void> checkNewUser() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -67,16 +69,24 @@ class _SplashScreenState extends State<SplashScreen> {
     });
   }
 
+  Future<void> initWeather() async {
+    Get.put(await Weather.init());
+    setState(() {
+      w = true;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
     checkNewUser();
     initNotice();
+    initWeather();
   }
 
   @override
   Widget build(BuildContext context) {
-    if (page == 0 && init) {
+    if (page == 0 && init && w) {
       startAnimation();
       precacheImage(
         const AssetImage('assets/background/home_screen.png'),
@@ -105,6 +115,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 children: [
                   AnimatedScale(
                     duration: const Duration(milliseconds: _duration),
+                    curve: Curves.easeInOut,
                     scale: page == 2 ? 136 / 44.88 : 1,
                     child: SvgPicture.asset(
                       'assets/icons/splash/check.svg',
@@ -137,6 +148,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   ),
                   AnimatedContainer(
                     duration: const Duration(milliseconds: _duration),
+                    curve: Curves.easeInOut,
                     width: page == 0 ? 215.75 * widthRatio : 0,
                     height: 1,
                     onEnd: () {
@@ -149,6 +161,7 @@ class _SplashScreenState extends State<SplashScreen> {
               ),
               AnimatedOpacity(
                 duration: const Duration(milliseconds: _duration),
+                curve: Curves.easeInOut,
                 opacity: page == 0 ? 1 : 0,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
