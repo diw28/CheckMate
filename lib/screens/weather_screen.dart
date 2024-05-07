@@ -29,6 +29,16 @@ class _WeatherScreenState extends State<WeatherScreen> {
     super.initState();
     current = weather.current;
     weekly = weather.weekly.cast<Map>();
+    if (6 <= hour && hour < 8) {
+      time = 'dawn';
+    } else if (8 <= hour && hour < 17) {
+      time = 'day';
+    } else if (17 <= hour && hour < 20) {
+      time = 'even';
+    } else {
+      time = 'night';
+    }
+    setState(() {});
   }
 
   @override
