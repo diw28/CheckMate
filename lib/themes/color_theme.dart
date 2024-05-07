@@ -25,9 +25,22 @@ abstract class MainColors {
   static const foodBackgroundBreakfast = Color(0xFFFFEEDF);
   static const foodBackgroundlunch = Color(0xFFE7F6FF);
   static const foodBackgroundDinner = Color(0xFFD4D8FF);
+  static const weatherDayTop = Color(0xFF70CBFF);
+  static const weatherDayText = Color(0xFF78CBFF);
+  static const weatherDayBottom = Color(0xFFD4C9FF);
+  static const weatherNightTop = Colors.black;
+  static const weatherNightText = Color(0xFF03000E);
+  static const weatherNightBottom = Color(0xFF2300AF);
+  static const weatherEvenTop = Color(0xFFFF794E);
+  static const weatherEvenText = Color(0xFFF5775C);
+  static const weatherEvenBottom = Color(0xFF8465FF);
+  static const weatherDawnTop = Color(0xFF37007E);
+  static const weatherDawnText = Color(0xFF470B7C);
+  static const weatherDawnBottom = Color(0xFFFF8862);
 }
 
 abstract class TextColors {
+  static const textfieldHint = Color(0xFF6F6F6F);
   static const tutorialSlogan = Color(0xFF7446E2);
   static const tutorialText = Color(0xFF595959);
   static const tutorialTip = Color(0xFF7A7A7A);

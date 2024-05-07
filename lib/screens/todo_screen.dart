@@ -81,8 +81,8 @@ class _TodoScreenState extends State<TodoScreen> {
                       child: SizedBox(),
                     ),
                     SvgPicture.asset(
-                      'assets/icons/checkmate_settings.svg',
-                      height: 20,
+                      'assets/icons/checkmate_todo.svg',
+                      height: 24.17,
                       colorFilter: const ColorFilter.mode(
                         Colors.white,
                         BlendMode.srcIn,
@@ -164,7 +164,7 @@ class _TodoScreenState extends State<TodoScreen> {
                             ),
                             const Text(
                               '중요',
-                              style: MainTextTheme.todoDetailImportant,
+                              style: MainTextTheme.todoImportant,
                             ),
                           ],
                         ),

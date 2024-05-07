@@ -1,19 +1,22 @@
-import 'package:check_mate/functions/todo.dart';
-import 'package:check_mate/screens/pomodoro_screen.dart';
-import 'package:check_mate/screens/settings_screen.dart';
 import 'package:flutter/material.dart' hide Text, TextField;
 
 import 'package:get/get.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../functions/todo.dart';
+import '../functions/get_api.dart';
 import '../widgets/text.dart' show Text;
+import '../widgets/home_screen_button.dart';
+import '../widgets/todo_list.dart';
 import '../themes/color_theme.dart';
 import '../themes/text_theme.dart';
-import '../widgets/todo_list.dart';
 import 'add_todo_screen.dart';
+import 'settings_screen.dart';
+import 'pomodoro_screen.dart';
 import 'food_screen.dart';
 import 'timer_screen.dart';
+import 'weather_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -24,7 +27,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   String name = '';
-  int temperature = 2;
+  int temp = 2;
   String weather = 'snowy';
   List<Todo> todos = [];
 
@@ -44,6 +47,12 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     getName();
     getTodo();
+
+    Map w = Get.find<Weather>().current;
+    setState(() {
+      weather = w['icon'];
+      temp = w['temp']['curr'];
+    });
   }
 
   @override
@@ -181,10 +190,10 @@ class _HomeScreenState extends State<HomeScreen> {
                             HomeScreenButton(
                               iconName: 'weather/$weather',
                               iconSize: 25,
-                              text: '$temperature℃',
+                              text: '$temp℃',
                               onTap: () {
                                 Get.to(
-                                  () => const AddTodoScreen(),
+                                  () => const WeatherScreen(),
                                   transition: Transition.rightToLeft,
                                 );
                               },
@@ -223,61 +232,6 @@ class _HomeScreenState extends State<HomeScreen> {
               TodoListBox(todos, getTodo),
             ],
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class HomeScreenButton extends StatelessWidget {
-  final String iconName;
-  final double iconSize;
-  final String text;
-  final Function() onTap;
-  const HomeScreenButton({
-    super.key,
-    required this.iconName,
-    required this.iconSize,
-    required this.text,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    double widthRatio = MediaQuery.of(context).size.width / 430;
-    double heightRatio = MediaQuery.of(context).size.height / 932;
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        height: 43 * heightRatio,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(13 * heightRatio),
-          color: Colors.white,
-        ),
-        padding: EdgeInsets.only(
-          left: 8 * widthRatio,
-          right: 10 * widthRatio,
-        ),
-        child: Row(
-          children: [
-            SvgPicture.asset(
-              'assets/icons/$iconName.svg',
-              height: iconSize * widthRatio,
-              colorFilter: const ColorFilter.mode(
-                MainColors.homeIconColor,
-                BlendMode.srcIn,
-              ),
-            ),
-            SizedBox(
-              width: 5 * widthRatio,
-            ),
-            Text(
-              text,
-              style: MainTextTheme.homeScreenButton.copyWith(
-                fontSize: 17 * widthRatio,
-              ),
-            ),
-          ],
         ),
       ),
     );

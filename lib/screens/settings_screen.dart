@@ -240,6 +240,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 textInputAction: TextInputAction.done,
                                 keyboardType: TextInputType.number,
                                 decoration: InputDecoration(
+                                  hintText: '${period ?? 0}',
+                                  hintStyle: MainTextTheme.input.copyWith(
+                                    color: TextColors.textfieldHint,
+                                  ),
                                   contentPadding: EdgeInsets.zero,
                                   border: OutlineInputBorder(
                                     borderSide: BorderSide.none,
@@ -371,6 +375,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               textInputAction: TextInputAction.done,
                               keyboardType: TextInputType.number,
                               decoration: InputDecoration(
+                                hintText: '$goal',
+                                hintStyle: MainTextTheme.input.copyWith(
+                                  color: TextColors.textfieldHint,
+                                ),
                                 contentPadding: EdgeInsets.zero,
                                 border: OutlineInputBorder(
                                   borderSide: BorderSide.none,
@@ -428,6 +436,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ),
                       child: TextField(
                         onChanged: (p0) {
+                          if (p0.isEmpty) return;
                           name = p0;
                           prefs.setString('name', name);
                           setState(() {});
@@ -437,6 +446,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         style: MainTextTheme.input,
                         textInputAction: TextInputAction.done,
                         decoration: InputDecoration(
+                          hintText: name,
+                          hintStyle: MainTextTheme.input.copyWith(
+                            color: TextColors.textfieldHint,
+                          ),
                           contentPadding: EdgeInsets.zero,
                           border: OutlineInputBorder(
                             borderSide: BorderSide.none,

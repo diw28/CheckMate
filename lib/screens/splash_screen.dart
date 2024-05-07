@@ -21,20 +21,28 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   int page = 0;
   bool? newUser;
+  bool splashStart = false;
   bool splashEnd = false;
-  bool init = false;
-  bool w = false;
+  bool notice = false;
+  bool weather = false;
 
-  Future<void> checkNewUser() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    if (prefs.getString('name') == null) {
-      newUser = true;
-    } else {
-      newUser = false;
-    }
-    if (splashEnd) {
-      await Future.delayed(const Duration(milliseconds: _duration));
-      if (newUser!) {
+  Future<void> startAnimation() async {
+    await Future.delayed(
+      const Duration(milliseconds: _duration),
+      () => setState(() {
+        page = 1;
+      }),
+    );
+  }
+
+  Future<void> toNext() async {
+    if (splashEnd && newUser != null && weather && notice) {
+      bool user = newUser!;
+      setState(() {
+        splashEnd = (weather = (notice = false));
+        newUser = null;
+      });
+      if (user) {
         Get.offAll(
           () => const TutorialScreen(),
           transition: Transition.fadeIn,
@@ -50,43 +58,59 @@ class _SplashScreenState extends State<SplashScreen> {
         );
       }
     }
-    setState(() {});
   }
 
-  Future<void> startAnimation() async {
-    await Future.delayed(
-      const Duration(milliseconds: _duration),
-      () => setState(() {
-        page = 1;
-      }),
-    );
+  Future<void> checkNewUser() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (prefs.getString('name') == null) {
+      newUser = true;
+    } else {
+      newUser = false;
+    }
+    setState(() {});
   }
 
   Future<void> initNotice() async {
     await LocalNotification.init();
     setState(() {
-      init = true;
+      notice = true;
     });
   }
 
   Future<void> initWeather() async {
     Get.put(await Weather.init());
     setState(() {
-      w = true;
+      weather = true;
+    });
+  }
+
+  Future<void> initialize() async {
+    await LocalNotification.getPermission(set: true);
+    await GPS.getPermission();
+    setState(() {
+      splashStart = true;
+    });
+
+    checkNewUser().whenComplete(() {
+      toNext();
+    });
+    initNotice().whenComplete(() {
+      toNext();
+    });
+    initWeather().whenComplete(() {
+      toNext();
     });
   }
 
   @override
   void initState() {
     super.initState();
-    checkNewUser();
-    initNotice();
-    initWeather();
+    initialize();
   }
 
   @override
   Widget build(BuildContext context) {
-    if (page == 0 && init && w) {
+    if (page == 0 && splashStart) {
       startAnimation();
       precacheImage(
         const AssetImage('assets/background/home_screen.png'),
@@ -123,27 +147,8 @@ class _SplashScreenState extends State<SplashScreen> {
                     ),
                     onEnd: () async {
                       splashEnd = true;
-                      if (newUser != null) {
-                        await Future.delayed(
-                          const Duration(milliseconds: _duration),
-                        );
-                        if (newUser!) {
-                          Get.offAll(
-                            () => const TutorialScreen(),
-                            transition: Transition.fadeIn,
-                            curve: Curves.linear,
-                            duration: const Duration(milliseconds: 800),
-                          );
-                        } else {
-                          Get.offAll(
-                            () => const HomeScreen(),
-                            transition: Transition.fadeIn,
-                            curve: Curves.linear,
-                            duration: const Duration(milliseconds: 800),
-                          );
-                        }
-                      }
                       setState(() {});
+                      toNext();
                     },
                   ),
                   AnimatedContainer(

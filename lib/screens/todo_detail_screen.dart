@@ -8,24 +8,31 @@ import '../widgets/text.dart' show Text, TextField;
 import '../themes/text_theme.dart';
 import '../themes/color_theme.dart';
 
-class AddTodoScreen extends StatefulWidget {
-  const AddTodoScreen({super.key});
+class TodoDetailScreen extends StatefulWidget {
+  final Todo todo;
+  const TodoDetailScreen(this.todo, {super.key});
 
   @override
-  State<AddTodoScreen> createState() => _AddTodoScreenState();
+  State<TodoDetailScreen> createState() => _TodoDetailScreenState();
 }
 
-class _AddTodoScreenState extends State<AddTodoScreen> {
+class _TodoDetailScreenState extends State<TodoDetailScreen> {
   FocusNode focusNode1 = FocusNode();
   FocusNode focusNode2 = FocusNode();
-  String name = '';
-  String note = '';
-  bool isImportant = false;
-  TimeOfDay time = const TimeOfDay(hour: 0, minute: 0);
+  late String name;
+  late String note;
+  late bool isImportant;
+  late TimeOfDay time;
 
   @override
   void initState() {
     super.initState();
+    setState(() {
+      name = widget.todo.name;
+      note = widget.todo.note;
+      isImportant = widget.todo.isImportant;
+      time = stringToTimeOfDay(widget.todo.time);
+    });
   }
 
   @override
@@ -80,8 +87,8 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                         child: SizedBox(),
                       ),
                       SvgPicture.asset(
-                        'assets/icons/checkmate_add.svg',
-                        height: 20,
+                        'assets/icons/checkmate_todo.svg',
+                        height: 24.17,
                         colorFilter: const ColorFilter.mode(
                           Colors.white,
                           BlendMode.srcIn,
@@ -90,15 +97,22 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                       SizedBox(
                         width: 11 * widthRatio,
                       ),
-                      const Text(
-                        '할 일 추가',
+                      Text(
+                        name,
                         style: MainTextTheme.pageTitle,
                       ),
                     ],
                   ),
                 ),
                 SizedBox(
-                  height: 43 * heightRatio,
+                  height: 59 * heightRatio,
+                ),
+                const Text(
+                  'Title',
+                  style: MainTextTheme.addTodoTitle,
+                ),
+                SizedBox(
+                  height: 7 * heightRatio,
                 ),
                 Container(
                   height: 48,
@@ -122,7 +136,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                         borderSide: BorderSide.none,
                         borderRadius: BorderRadius.circular(18 * heightRatio),
                       ),
-                      hintText: '여기에 할 일을 입력...',
+                      hintText: name,
                       hintStyle: MainTextTheme.addTodoHint,
                     ),
                   ),
@@ -233,7 +247,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                   ],
                 ),
                 SizedBox(
-                  height: 29 * heightRatio,
+                  height: 61 * heightRatio,
                 ),
                 Padding(
                   padding: EdgeInsets.only(left: 12 * widthRatio),
@@ -243,7 +257,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                   ),
                 ),
                 SizedBox(
-                  height: 8 * heightRatio,
+                  height: 7 * heightRatio,
                 ),
                 Container(
                   decoration: BoxDecoration(
@@ -270,13 +284,13 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                         borderSide: BorderSide.none,
                         borderRadius: BorderRadius.circular(18 * heightRatio),
                       ),
-                      hintText: '여기에 할 일을 입력...',
+                      hintText: note,
                       hintStyle: MainTextTheme.addTodoHint,
                     ),
                   ),
                 ),
                 SizedBox(
-                  height: 94 * heightRatio,
+                  height: 102 * heightRatio,
                 ),
                 GestureDetector(
                   onTap: () async {
@@ -289,14 +303,14 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                         duration: const Duration(milliseconds: 1500),
                       );
                     } else {
-                      bool setCompleted = await Todo.set(
+                      bool updateCompleted = await widget.todo.update(
                         name: name,
                         note: note,
                         time: time.format(context),
                         check: false,
                         isImportant: isImportant,
                       );
-                      if (!setCompleted) {
+                      if (!updateCompleted) {
                         Get.closeAllSnackbars();
                         Get.snackbar(
                           'warning',
@@ -311,7 +325,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                       Get.closeAllSnackbars();
                       Get.snackbar(
                         'success',
-                        "'$name' was saved successfully.",
+                        "'$name' was updated successfully.",
                         snackPosition: SnackPosition.BOTTOM,
                         duration: const Duration(milliseconds: 1500),
                       );
@@ -325,7 +339,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                     ),
                     child: const Center(
                       child: Text(
-                        '저장',
+                        '수정',
                         style: MainTextTheme.button,
                       ),
                     ),

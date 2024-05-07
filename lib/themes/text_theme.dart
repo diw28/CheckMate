@@ -95,7 +95,7 @@ abstract class MainTextTheme {
     height: 18 / 15,
   );
   static const addTodoHint = TextStyle(
-    color: Color(0xFF6F6F6F),
+    color: TextColors.textfieldHint,
     fontSize: 15,
     fontFamily: 'Pretendard',
     fontWeight: FontWeight.w400,
@@ -150,7 +150,7 @@ abstract class MainTextTheme {
     fontWeight: FontWeight.w500,
     height: 17 / 14,
   );
-  static const todoDetailImportant = TextStyle(
+  static const todoImportant = TextStyle(
     color: TextColors.settingText,
     fontSize: 20,
     fontFamily: 'Pretendard',
@@ -219,5 +219,54 @@ abstract class MainTextTheme {
     fontFamily: 'Pretendard',
     fontWeight: FontWeight.w400,
     height: 21 / 17,
+  );
+  static const weatherCurrentMain = TextStyle(
+    color: Colors.white,
+    fontSize: 43,
+    fontFamily: 'Pretendard',
+    fontWeight: FontWeight.w600,
+    height: 51 / 43,
+  );
+  static const weatherCurrentTemp = TextStyle(
+    color: Colors.white,
+    fontSize: 90,
+    fontFamily: 'Pretendard',
+    fontWeight: FontWeight.w400,
+    height: 109 / 90,
+  );
+  static const weatherCurrentDegree = TextStyle(
+    color: Colors.white,
+    fontSize: 40,
+    fontFamily: 'Pretendard',
+    fontWeight: FontWeight.w300,
+    height: 48 / 40,
+  );
+  static const weatherCurrentMaxMin = TextStyle(
+    color: Colors.white,
+    fontSize: 30,
+    fontFamily: 'Pretendard',
+    fontWeight: FontWeight.w400,
+    height: 36 / 30,
+  );
+  static const weatherWeeklyTitle = TextStyle(
+    color: Colors.white,
+    fontSize: 24,
+    fontFamily: 'Pretendard',
+    fontWeight: FontWeight.w700,
+    height: 29 / 24,
+  );
+  static const weatherWeeklyWeekDay = TextStyle(
+    color: Colors.white,
+    fontSize: 20,
+    fontFamily: 'Pretendard',
+    fontWeight: FontWeight.w500,
+    height: 24 / 20,
+  );
+  static const weatherWeeklyMaxMin = TextStyle(
+    color: Colors.white,
+    fontSize: 24,
+    fontFamily: 'Pretendard',
+    fontWeight: FontWeight.w400,
+    height: 29 / 24,
   );
 }

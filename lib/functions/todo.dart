@@ -120,6 +120,10 @@ class Todo {
     List<String> jsonList = prefs.getStringList('to_do_list') ?? [];
     List<String> result = [];
 
+    if (name != null && name != this.name && await find(name) != null) {
+      return false;
+    }
+
     for (String json in jsonList) {
       if (jsonDecode(json)['name'] != this.name) {
         result.add(json);

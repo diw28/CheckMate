@@ -67,8 +67,8 @@ class _Weather {
     final url = Uri.parse(
         'https://api.openweathermap.org/data/2.5/forecast/daily?lat=$lat&lon=$lon&cnt=7&appid=$apiKey');
     var response = await http.get(url);
-    List<Map> list = jsonDecode(response.body)['list'];
-    List<Map> result = [];
+    List list = jsonDecode(response.body)['list'];
+    List result = [];
     for (Map day in list) {
       result.add({
         'max': K2C(day['temp']['max']),
@@ -103,29 +103,43 @@ class GPS {
   GPS._();
 
   static Future<List<double>?> get() async {
+    try {
+      Location location = Location();
+      LocationData locationData;
+
+      locationData = await location.getLocation();
+      return [locationData.latitude!, locationData.longitude!];
+    } catch (e) {
+      return [37.3417256, 126.8315459];
+    }
+  }
+
+  static Future<bool> getPermission() async {
     Location location = Location();
 
     bool serviceEnabled;
     PermissionStatus permissionGranted;
-    LocationData locationData;
 
-    serviceEnabled = await location.serviceEnabled();
-    if (!serviceEnabled) {
-      serviceEnabled = await location.requestService();
+    try {
+      serviceEnabled = await location.serviceEnabled();
       if (!serviceEnabled) {
-        return null;
+        serviceEnabled = await location.requestService();
+        if (!serviceEnabled) {
+          return false;
+        }
       }
-    }
 
-    permissionGranted = await location.hasPermission();
-    if (permissionGranted == PermissionStatus.denied) {
-      permissionGranted = await location.requestPermission();
-      if (permissionGranted != PermissionStatus.granted) {
-        return null;
+      permissionGranted = await location.hasPermission();
+      if (permissionGranted == PermissionStatus.denied) {
+        permissionGranted = await location.requestPermission();
+        if (permissionGranted != PermissionStatus.granted) {
+          return false;
+        }
       }
-    }
 
-    locationData = await location.getLocation();
-    return [locationData.latitude!, locationData.longitude!];
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 }

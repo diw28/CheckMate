@@ -4,6 +4,7 @@ import 'package:flutter/material.dart' hide Text, TextField;
 import 'package:get/get.dart';
 
 import '../functions/todo.dart';
+import '../screens/todo_detail_screen.dart';
 import '../screens/todo_screen.dart';
 import '../static.dart';
 import '../themes/color_theme.dart';
@@ -177,6 +178,10 @@ class _TodoItemState extends State<TodoItem> {
             const Expanded(child: SizedBox()),
             if (widget.detail)
               GestureDetector(
+                onTap: () async {
+                  await Get.to(() => TodoDetailScreen(widget.todo));
+                  setState(() {});
+                },
                 child: const Icon(
                   Icons.arrow_forward_ios_rounded,
                   color: Color(0xFF717171),

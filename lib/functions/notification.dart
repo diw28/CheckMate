@@ -14,11 +14,14 @@ class LocalNotification {
 
   LocalNotification._();
 
-  static Future<void> init() async {
+  static Future<bool> getPermission({bool set = false}) async {
+    if (set) await Permission.notification.request();
     PermissionStatus status = await Permission.notification.status;
-    if (status.isPermanentlyDenied || status.isGranted) return;
-    await Permission.notification.request();
+    if (status.isPermanentlyDenied || status.isGranted) return false;
+    return true;
+  }
 
+  static Future<void> init() async {
     await notifications.initialize(
       const InitializationSettings(
         android: AndroidInitializationSettings('notice_icon'),
