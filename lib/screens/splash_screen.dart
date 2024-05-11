@@ -116,6 +116,10 @@ class _SplashScreenState extends State<SplashScreen> {
         const AssetImage('assets/background/home_screen.png'),
         context,
       );
+      precacheImage(
+        const AssetImage('assets/images/coven.png'),
+        context,
+      );
     }
     double widthRatio = MediaQuery.of(context).size.width / 430;
     return Container(

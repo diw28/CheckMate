@@ -61,6 +61,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         child: Padding(
           padding: EdgeInsets.only(
             top: 51 * heightRatio,
+            bottom: 48 * heightRatio,
             left: 34 * widthRatio,
             right: 34 * widthRatio,
           ),
@@ -159,7 +160,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           ),
                           Text(
                             '시간을 지정한 할 일을 알림으로 알려드려요',
-                            style: MainTextTheme.settingtext.copyWith(
+                            style: MainTextTheme.settingText.copyWith(
                               fontSize: 14 * widthRatio,
                             ),
                           ),
@@ -205,7 +206,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           ),
                           Text(
                             '할 일 알림 시간을 설정하세요',
-                            style: MainTextTheme.settingtext.copyWith(
+                            style: MainTextTheme.settingText.copyWith(
                               fontSize: 14 * widthRatio,
                             ),
                           ),
@@ -236,13 +237,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 controller: _controller,
                                 focusNode: focusNodePeriod,
                                 textAlign: TextAlign.end,
-                                style: MainTextTheme.input,
+                                style: MainTextTheme.input.copyWith(
+                                  fontSize: 19 * widthRatio,
+                                ),
                                 textInputAction: TextInputAction.done,
                                 keyboardType: TextInputType.number,
                                 decoration: InputDecoration(
                                   hintText: '${period ?? 0}',
                                   hintStyle: MainTextTheme.input.copyWith(
                                     color: TextColors.textfieldHint,
+                                    fontSize: 19 * widthRatio,
                                   ),
                                   contentPadding: EdgeInsets.zero,
                                   border: OutlineInputBorder(
@@ -253,8 +257,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 ),
                               ),
                             ),
-                            const Text(
+                            Text(
                               '분 전',
+                              style: MainTextTheme.input.copyWith(
+                                color: TextColors.textfieldHint,
+                                fontSize: 19 * widthRatio,
+                              ),
                             ),
                           ],
                         ),
@@ -300,7 +308,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           ),
                           Text(
                             '타이머가 종료되면 진동이 울려요',
-                            style: MainTextTheme.settingtext.copyWith(
+                            style: MainTextTheme.settingText.copyWith(
                               fontSize: 14 * widthRatio,
                             ),
                           ),
@@ -342,7 +350,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         ),
                         Text(
                           'Pomodoro 타이머에 표시돼요',
-                          style: MainTextTheme.settingtext.copyWith(
+                          style: MainTextTheme.settingText.copyWith(
                             fontSize: 14 * widthRatio,
                           ),
                         ),
@@ -371,13 +379,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               },
                               focusNode: focusNodeGoal,
                               textAlign: TextAlign.end,
-                              style: MainTextTheme.input,
+                              style: MainTextTheme.input.copyWith(
+                                fontSize: 19 * widthRatio,
+                              ),
                               textInputAction: TextInputAction.done,
                               keyboardType: TextInputType.number,
                               decoration: InputDecoration(
                                 hintText: '$goal',
                                 hintStyle: MainTextTheme.input.copyWith(
                                   color: TextColors.textfieldHint,
+                                  fontSize: 19 * widthRatio,
                                 ),
                                 contentPadding: EdgeInsets.zero,
                                 border: OutlineInputBorder(
@@ -388,8 +399,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               ),
                             ),
                           ),
-                          const Text(
+                          Text(
                             '회',
+                            style: MainTextTheme.input.copyWith(
+                              color: TextColors.textfieldHint,
+                              fontSize: 19 * widthRatio,
+                            ),
                           ),
                         ],
                       ),
@@ -458,6 +473,39 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           ),
                         ),
                       ),
+                    ),
+                  ],
+                ),
+              ),
+              const Expanded(child: SizedBox()),
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20 * heightRatio),
+                  color: MainColors.settingBackground,
+                ),
+                padding: EdgeInsets.only(
+                  top: 9 * heightRatio,
+                  bottom: 9.62 * heightRatio,
+                  left: 26 * widthRatio,
+                  right: 15 * widthRatio,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(top: 15 * widthRatio),
+                      child: Text(
+                        '기획 / 디자인 : 김도현\n개발 : 노현규',
+                        style: MainTextTheme.creditText.copyWith(
+                          fontSize: 15 * widthRatio,
+                        ),
+                      ),
+                    ),
+                    const Expanded(child: SizedBox()),
+                    Image.asset(
+                      'assets/images/coven.png',
+                      width: 50 * widthRatio,
                     ),
                   ],
                 ),

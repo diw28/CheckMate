@@ -143,8 +143,15 @@ abstract class MainTextTheme {
     fontWeight: FontWeight.w500,
     height: 23 / 19,
   );
-  static const settingtext = TextStyle(
+  static const settingText = TextStyle(
     color: TextColors.settingText,
+    fontSize: 14,
+    fontFamily: 'Pretendard',
+    fontWeight: FontWeight.w500,
+    height: 17 / 14,
+  );
+  static const creditText = TextStyle(
+    color: TextColors.creditText,
     fontSize: 14,
     fontFamily: 'Pretendard',
     fontWeight: FontWeight.w500,

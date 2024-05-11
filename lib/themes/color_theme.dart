@@ -47,6 +47,7 @@ abstract class TextColors {
   static const todoListSelected = Color(0xFFB2B2B2);
   static const pomodoroCount = Color(0xFF005445);
   static const settingText = Color(0xFF9B9B9B);
+  static const creditText = Color(0xFF676767);
   static const todoDetailImportant = Color(0xFF696969);
   static const todoEmpty = Color(0xFF2F00A0);
   static const foodTitleBreakfast = Color(0xFFFF8E25);
