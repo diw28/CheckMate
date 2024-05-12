@@ -190,6 +190,12 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                         time = await showTimePicker(
                               context: context,
                               initialTime: const TimeOfDay(hour: 0, minute: 0),
+                              builder: (context, child) => MediaQuery(
+                                data: MediaQuery.of(context).copyWith(
+                                  alwaysUse24HourFormat: false,
+                                ),
+                                child: child!,
+                              ),
                             ) ??
                             const TimeOfDay(hour: 0, minute: 0);
                         setState(() {});
